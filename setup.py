@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
-setup(name='raspsutin_project',
+setup(name='raspsutin-project',
     version='0.01',
-    description='A Django website',
+    description='A simple Django website',
     author='Teemu Husso',
     author_email='teemu.husso@gmail.com',
     url='',

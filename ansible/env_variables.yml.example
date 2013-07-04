@@ -1,0 +1,17 @@
+# app_deployment
+app_version: default # change this to preserve previous deployment
+local_tarball_dir: ..
+env_settings_tmpl: ../conf/env_settings_tmpl.py
+
+# django settings.py template variables
+db_user: database-username
+db_name: database-name
+db_password: database-password
+
+# nginx
+django_static_dir: /home/vagrant/app/current/collected_static
+
+# uwsgi
+module: raspsutin_project.wsgi
+chdir: /home/vagrant/app/current
+home: /home/vagrant/app/current/venv

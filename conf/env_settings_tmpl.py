@@ -9,3 +9,6 @@ DATABASES = {
         'PORT': '{{ db_port }}',
     }
 }
+
+# TODO: make this configurable
+ALLOWED_HOSTS = ['*']

@@ -1,4 +1,7 @@
+import os.path
+
 # Django settings for raspsutin_project project.
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -121,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.staticfiles',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -153,3 +157,6 @@ LOGGING = {
         },
     }
 }
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, '..', '..', 'collected_static')

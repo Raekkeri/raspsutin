@@ -1,5 +1,8 @@
 # app_deployment
 app_version: default # change this to preserve previous deployment
+app_base_dir: /home/user/app
+app_packages_dir: /home/user/app/packages
+app_current_location: /home/user/app/current
 local_tarball_dir: ..
 env_settings_tmpl: ../conf/env_settings_tmpl.py
 

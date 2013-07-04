@@ -13,5 +13,6 @@ setup(name='raspsutin-project',
     install_requires=[
         'setuptools',
         'django>=1.5.1',
+        'psycopg2==2.5.1',
         ],
 )

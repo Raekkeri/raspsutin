@@ -48,3 +48,6 @@
 
     - include: django-ansible/app_deployment/tasks/post_app_deployment.yml
     - service: name=uwsgi state=restarted
+  handlers:
+    - include: django-ansible/nginx/handlers/nginx.yml
+    - include: django-ansible/uwsgi/handlers/uwsgi.yml

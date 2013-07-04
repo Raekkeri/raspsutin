@@ -1,0 +1,50 @@
+# prerequisites: clone the django-ansible-stack to this directory:
+# $ git clone https://github.com/Raekkeri/django-ansible-stack.git django-ansible
+# usage: ansible-playbook raspsutin-playbook.yml --extra-vars="user=ssh_user"
+---
+- hosts: webservers
+  sudo: yes
+  vars_files:
+    - django-ansible/nginx/vars/default.yml
+    - django-ansible/app_deployment/vars/default.yml
+    - django-ansible/app_deployment/vars/django_settings.yml
+    - env_variables.yml
+  user: ${user}
+  tasks:
+    - include: django-ansible/pythondev/tasks/pythondev.yml
+    - include: django-ansible/nginx/tasks/nginx.yml
+    - include: django-ansible/nginx/tasks/nginx_uwsgi.yml
+    - include: django-ansible/uwsgi/tasks/uwsgi.yml
+    - include: django-ansible/app_deployment/tasks/app_deployment.yml
+
+    - name: Copy latest tarball package to server
+      copy: src="${local_tarball_dir}/package.tar" "dest=${app_packages_dir}/${app_version}"
+    - name: Extract the tarball
+      command: tar xvf package.tar chdir="${app_packages_dir}/${app_version}"
+    - name: Install project in develop mode
+      command:
+        ${app_packages_dir}/${app_version}/venv/bin/python setup.py develop
+        chdir="${app_packages_dir}/${app_version}"
+    - name: Ensure prod_settings.py is linked
+      file:
+        src="${app_packages_dir}/${app_version}/conf/prod_settings.py"
+        dest="${app_packages_dir}/${app_version}/src/raspsutin_project/settings.py"
+        state=link
+    - name: Ensure env_settings is up-to-date
+      template:
+        src=${env_settings_tmpl}
+        dest="${app_packages_dir}/${app_version}/src/raspsutin_project/env_settings.py"
+    - name: Run django syncdb
+      django_manage:
+        command=syncdb
+        virtualenv="${app_packages_dir}/${app_version}/venv/"
+        app_path="${app_packages_dir}/${app_version}"
+    - name: Run django collectstatic
+      django_manage:
+        command=collectstatic
+        virtualenv="${app_packages_dir}/${app_version}/venv/"
+        app_path="${app_packages_dir}/${app_version}"
+        link=yes
+
+    - include: django-ansible/app_deployment/tasks/post_app_deployment.yml
+    - service: name=uwsgi state=restarted

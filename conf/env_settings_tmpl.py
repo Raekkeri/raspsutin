@@ -10,5 +10,5 @@ DATABASES = {
     }
 }
 
-# TODO: make this configurable
+# TODO: make this configurable, please
 ALLOWED_HOSTS = ['*']

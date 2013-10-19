@@ -6,12 +6,14 @@
   sudo: yes
   vars_files:
     - django-ansible/nginx/vars/default.yml
+    - django-ansible/varnish/vars/default.yml
     - django-ansible/app_deployment/vars/default.yml
     - django-ansible/app_deployment/vars/django_settings.yml
     - env_variables.yml
   user: ${user}
   tasks:
     - include: django-ansible/pythondev/tasks/pythondev.yml
+    - include: django-ansible/varnish/tasks/varnish.yml
     - include: django-ansible/nginx/tasks/nginx.yml
     - include: django-ansible/nginx/tasks/nginx_uwsgi.yml
     - include: django-ansible/uwsgi/tasks/uwsgi.yml
@@ -49,5 +51,6 @@
     - include: django-ansible/app_deployment/tasks/post_app_deployment.yml
     - service: name=uwsgi state=restarted
   handlers:
+    - include: django-ansible/varnish/handlers/varnish.yml
     - include: django-ansible/nginx/handlers/nginx.yml
     - include: django-ansible/uwsgi/handlers/uwsgi.yml

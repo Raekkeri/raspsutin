@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% for obj in object_list %}
+<article>
+<h2>{{ obj.title }}</h2>
+<time>{{ obj.publish_date }}</time>
+<p>{{ obj.text }}<p>
+{% endfor %}
+{% endblock %}

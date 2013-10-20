@@ -5,6 +5,8 @@ from django_extensions.db.fields import (
         CreationDateTimeField,
         )
 
+from managers import BlogManager
+
 
 class BlogEntry(models.Model):
     title = models.CharField(max_length=1024)
@@ -13,6 +15,7 @@ class BlogEntry(models.Model):
     creation_date = CreationDateTimeField()
     is_public = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='title')
+    objects = BlogManager()
 
     def save(self, *args, **kwargs):
         if not self.publish_date:

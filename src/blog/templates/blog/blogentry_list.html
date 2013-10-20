@@ -3,7 +3,7 @@
 {% block content %}
 {% for obj in object_list %}
 <article>
-<h2>{{ obj.title }}</h2>
+<h2><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h2>
 <time>{{ obj.publish_date }}</time>
 <p>{{ obj.text }}<p>
 {% endfor %}

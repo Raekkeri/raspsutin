@@ -21,3 +21,7 @@ class BlogEntry(models.Model):
         if not self.publish_date:
             self.publish_date = timezone.now()
         return super(BlogEntry, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('blogentry_detail', [self.slug, self.id])

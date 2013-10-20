@@ -54,6 +54,11 @@
         link=yes
 
     - include: django-ansible/app_deployment/tasks/post_app_deployment.yml
+    - name: Run south migrations
+      django_manage:
+        command=migrate
+        virtualenv="${app_packages_dir}/${app_version}/venv/"
+        app_path="${app_packages_dir}/${app_version}"
     - service: name=uwsgi state=restarted
   handlers:
     - include: django-ansible/varnish/handlers/varnish.yml

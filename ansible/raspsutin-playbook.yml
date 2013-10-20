@@ -13,7 +13,8 @@
   user: ${user}
   tasks:
     - include: django-ansible/pythondev/tasks/pythondev.yml
-    - include: django-ansible/varnish/tasks/varnish.yml
+    #- include: django-ansible/varnish/tasks/varnish.yml
+    - include: django-ansible/varnish/tasks/varnish_confs.yml
     - include: django-ansible/nginx/tasks/nginx.yml
     - include: django-ansible/nginx/tasks/nginx_uwsgi.yml
     - include: django-ansible/uwsgi/tasks/uwsgi.yml

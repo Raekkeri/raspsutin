@@ -4,6 +4,7 @@ from django_extensions.db.fields import (
         AutoSlugField,
         CreationDateTimeField,
         )
+from django.conf import settings
 
 from managers import BlogManager
 
@@ -15,6 +16,8 @@ class BlogEntry(models.Model):
     creation_date = CreationDateTimeField()
     is_public = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='title')
+    image = models.FileField(upload_to='uploads',
+            blank=True, default='')
     objects = BlogManager()
 
     def save(self, *args, **kwargs):

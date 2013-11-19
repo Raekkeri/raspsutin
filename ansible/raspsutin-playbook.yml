@@ -61,6 +61,9 @@
         virtualenv="${app_packages_dir}/${app_version}/venv/"
         app_path="${app_packages_dir}/${app_version}"
     - service: name=uwsgi state=restarted
+    - name: Ensure media upload path exists and user has access
+      file:
+        path="${media_root}" state=directory owner="${media_root_owner}" mode=0755
   handlers:
     - include: django-ansible/varnish/handlers/varnish.yml
     - include: django-ansible/nginx/handlers/nginx.yml

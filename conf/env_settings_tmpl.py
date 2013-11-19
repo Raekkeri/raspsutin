@@ -12,3 +12,5 @@ DATABASES = {
 
 # TODO: make this configurable, please
 ALLOWED_HOSTS = ['*']
+
+MEDIA_ROOT = '{{ media_root }}'

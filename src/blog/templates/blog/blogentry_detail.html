@@ -4,6 +4,6 @@
 <article>
 <h1>{{ object.title }}</h1>
 <time>{{ object.publish_date }}</time>
-<p>{{ object.text }}<p>
+<p>{{ object.text|linebreaks }}<p>
 </article>
 {% endblock %}

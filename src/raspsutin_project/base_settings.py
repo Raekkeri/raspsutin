@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'blog',
     'django_extensions',
     'south',
+    'taggit',
 )
 
 # A sample logging configuration. The only tangible logging

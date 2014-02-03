@@ -5,6 +5,7 @@ from django_extensions.db.fields import (
         CreationDateTimeField,
         )
 from django.conf import settings
+from taggit.managers import TaggableManager
 
 from managers import BlogManager
 
@@ -19,6 +20,7 @@ class BlogEntry(models.Model):
     image = models.FileField(upload_to='uploads',
             blank=True, default='')
     objects = BlogManager()
+    tags = TaggableManager()
 
     def save(self, *args, **kwargs):
         if not self.publish_date:

@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load i18n %}
 
 {% block content %}
 {% for obj in object_list %}
@@ -6,5 +7,11 @@
 <h2><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h2>
 <time>{{ obj.publish_date }}</time>
 <p>{{ obj.text|linebreaks }}<p>
+<h4>{% trans "Tags" %}</h3>
+<ul class="inline">
+    {% for tag in obj.tags.all %}
+    <li>{{ tag.slug }}</li>
+    {% endfor %}
+</ul>
 {% endfor %}
 {% endblock %}
